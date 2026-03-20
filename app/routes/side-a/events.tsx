@@ -67,7 +67,11 @@ export default function Events() {
           <RichText value={description ?? []} />
         </div>
         <EventCalendar events={calendarEvents} />
-        <EventList title="Upcoming Events" events={calendarEvents} />
+        {calendarEvents.length > 0 ? (
+          <EventList title="Upcoming Events" events={calendarEvents} />
+        ) : (
+          <p className="py-12 text-center text-slate-400">No upcoming events scheduled.</p>
+        )}
       </Container>
     </Page>
   );
