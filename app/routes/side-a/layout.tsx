@@ -6,6 +6,8 @@ import Footer from "~/components/Footer";
 import Header from "~/components/Header";
 import MobileMenu from "~/components/MobileMenu";
 import PageContainer from "~/components/PageContainer";
+import { CartProvider } from "~/context/CartContext";
+import CartDrawer from "~/components/CartDrawer";
 import useOnResize from "~/hooks/useOnResize";
 import type { CallToAction } from "~/types/cta";
 import type { SanityImage, WrestlingSiteSettings } from "~/types/sanity";
@@ -65,20 +67,23 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const description = data?.description;
   const logo = data?.logo;
   return (
-    <PageContainer>
-      <Header
-        logo={logo}
-        menu={menu}
-        isOpen={isOpen}
-        toggleMenu={handleToggleMenu}
-      />
-      <MobileMenu
-        menu={menu}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-      />
-      <Outlet />
-      <Footer menu={menu} socials={socials} description={description} />
-    </PageContainer>
+    <CartProvider>
+      <PageContainer>
+        <Header
+          logo={logo}
+          menu={menu}
+          isOpen={isOpen}
+          toggleMenu={handleToggleMenu}
+        />
+        <MobileMenu
+          menu={menu}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+        />
+        <Outlet />
+        <Footer menu={menu} socials={socials} description={description} />
+        <CartDrawer />
+      </PageContainer>
+    </CartProvider>
   );
 }

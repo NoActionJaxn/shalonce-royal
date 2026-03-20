@@ -11,6 +11,10 @@ export default [
     route("side-a/matches/:slug", "./routes/side-a/matches.$slug.tsx"),
     route("side-a/gallery", "./routes/side-a/gallery.tsx"),
     route("side-a/contact", "./routes/side-a/contact.tsx"),
+    route("side-a/store", "./routes/side-a/store.tsx"),
+    route("side-a/store/checkout", "./routes/side-a/store.checkout.tsx"),
+    route("side-a/store/checkout/return", "./routes/side-a/store.checkout.return.tsx"),
+    route("side-a/store/api/checkout", "./routes/side-a/store.api.checkout.ts"),
   ]),
   
   layout("./routes/side-b/layout.tsx", [
