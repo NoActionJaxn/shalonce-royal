@@ -43,9 +43,8 @@ export async function loader() {
     const gallery = galleryItems?.galleryImages?.slice(0, 10) ?? [];
 
     return { siteTitle, pageTitle, about: aboutContent, gallery };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, pageTitle: undefined, about: { title: '', subtitle: '', content: [], featuredImage: undefined }, gallery: [] };
   }
 }
 
@@ -70,17 +69,17 @@ export default function About() {
             <div>
               <div className="mx-auto max-w-md md:max-w-lg overflow-hidden shadow-2xl ring-1 ring-black/10">
                 <div className="aspect-3/4">
-                  <Image className="h-full w-full object-cover" asset={about.featuredImage?.asset._ref} alt={about.title} />
+                  <Image className="h-full w-full object-cover" asset={about?.featuredImage?.asset._ref} alt={about?.title} />
                 </div>
               </div>
             </div>
             <div className="space-y-6">
               <div className="space-y-2">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{about.title}</h1>
-                <h2 className="text-2xl md:text-3xl opacity-90">{about.subtitle}</h2>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">{about?.title}</h1>
+                <h2 className="text-2xl md:text-3xl opacity-90">{about?.subtitle}</h2>
               </div>
               <div className="bg-black/30 text-white p-6 backdrop-blur-sm">
-                <RichText value={about.content} />
+                <RichText value={about?.content ?? []} />
               </div>
             </div>
           </div>

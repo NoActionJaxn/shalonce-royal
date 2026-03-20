@@ -41,9 +41,8 @@ export async function loader(): Promise<LoaderData> {
     const description: string | undefined = settings?.description;
 
     return { menu, socials, description, logo };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { menu: [], socials: [], description: undefined, logo: undefined };
   }
 }
 
@@ -61,10 +60,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   useOnResize({ onResize: handleCloseMenu });
 
   const data = useLoaderData<LoaderData>();
-  const menu = data.menu;
-  const socials = data.socials;
-  const description = data.description;
-  const logo = data.logo;
+  const menu = data?.menu ?? [];
+  const socials = data?.socials ?? [];
+  const description = data?.description;
+  const logo = data?.logo;
   return (
     <PageContainer>
       <Header

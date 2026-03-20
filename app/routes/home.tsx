@@ -33,9 +33,8 @@ export async function loader() {
     const sideB = sides[1];
 
     return { settings: rootSettings, wrestlingSocials, sideA, sideB };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { settings: undefined, wrestlingSocials: [], sideA: undefined, sideB: undefined };
   }
 }
 
@@ -59,13 +58,13 @@ export default function HomeRoute() {
   const [isSideA, setIsSideA] = useState(true);
 
   const socials = isSideA ? socialsSideA : socialsSideB;
-  const heading = isSideA ? sideA.title : sideB.title;
-  const sub = isSideA ? sideA.subtitle : sideB.subtitle;
-  const content = isSideA ? sideA.content : sideB.content;
+  const heading = isSideA ? sideA?.title : sideB?.title;
+  const sub = isSideA ? sideA?.subtitle : sideB?.subtitle;
+  const content = isSideA ? sideA?.content : sideB?.content;
 
   const image = isSideA
-    ? sideA.image
-    : sideB.image
+    ? sideA?.image
+    : sideB?.image
 
   const bgRefA = sideA?.backgroundImage?.asset?._ref;
   const bgRefB = sideB?.backgroundImage?.asset?._ref;
@@ -96,7 +95,7 @@ export default function HomeRoute() {
       <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor, opacity: 0.95 }} />
       <Container className="relative z-10">
         <div className="flex items-center justify-center mb-0 md:-mb-32 lg:-mb-56">
-          <Image asset={image?.asset._ref} alt={heading} className="w-full max-w-7xl" />
+          <Image asset={image?.asset?._ref} alt={heading} className="w-full max-w-7xl" />
         </div>
         <div className="space-y-6 text-center pb-16 max-w-xl mx-auto opacity-70">
           <div className="space-y-2">

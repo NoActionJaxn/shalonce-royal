@@ -61,9 +61,8 @@ export async function loader() {
     }
 
     return { siteTitle, pageTitle, hero, accolades: home?.accolades, matches, events: eventList };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, pageTitle: undefined, hero: { title: '', subTitle: '', content: [], backgroundImage: undefined }, accolades: [], matches: [], events: [] };
   }
 }
 
@@ -85,10 +84,10 @@ export default function Home() {
   return (
     <Page noPadding>
       <Hero
-        backgroundImage={hero.backgroundImage}
-        title={hero.title}
-        subTitle={hero.subTitle}
-        content={hero.content}
+        backgroundImage={hero?.backgroundImage}
+        title={hero?.title}
+        subTitle={hero?.subTitle}
+        content={hero?.content}
         className="pt-16 bg-black text-white"
         data-dark
       />

@@ -31,9 +31,8 @@ export async function loader() {
     const events = eventsPage?.upcomingEvents;
 
     return { siteTitle, pageTitle, title, description, events };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, pageTitle: undefined, title: undefined, description: undefined, events: undefined };
   }
 }
 

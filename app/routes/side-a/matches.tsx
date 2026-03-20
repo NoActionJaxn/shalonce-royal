@@ -37,9 +37,8 @@ export async function loader() {
     }
 
     return { siteTitle, pageTitle, matchData, matches };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, pageTitle: undefined, matchData: { title: undefined, content: undefined }, matches: [] };
   }
 }
 
@@ -55,14 +54,14 @@ export const meta: Route.MetaFunction = ({ data }) => {
 
 export default function Matches() {
   const data = useLoaderData<LoaderData>();
-  const matchData = data.matchData;
-  const matches = data.matches;
+  const matchData = data?.matchData;
+  const matches = data?.matches ?? [];
   
   return (
     <Page>
       <Container className="pt-16 space-y-4">
-        <h1 className="text-4xl font-bold">{matchData.title}</h1>
-        <RichText value={matchData.content ?? []} />
+        <h1 className="text-4xl font-bold">{matchData?.title}</h1>
+        <RichText value={matchData?.content ?? []} />
       </Container>
       <Container className="py-16">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

@@ -7,7 +7,7 @@ interface SanityClientOptions {
   useCdn?: boolean;
 }
 
-function validateEnvVar(name: string, value: unknown) {
+export function validateEnvVar(name: string, value: unknown) {
   if (typeof value !== "string" || value.trim() === "") {
     throw new Error(
       `Invalid Sanity config: ${name} is missing. Set it in your env (e.g., .env.local).`

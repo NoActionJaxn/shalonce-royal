@@ -31,9 +31,8 @@ export async function loader({ params }: Route.LoaderArgs) {
     const siteTitle = settings?.title ?? "Shalancé Royal";
 
     return { siteTitle, match } satisfies LoaderData;
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, match: undefined };
   }
 }
 
@@ -51,18 +50,18 @@ export const meta: Route.MetaFunction = ({ data }) => {
 export default function MatchDetail() {
   const data = useLoaderData<LoaderData>();
 
-  const match = data.match;
-  const mainImage = match.matchImages?.[0];
+  const match = data?.match;
+  const mainImage = match?.matchImages?.[0];
 
   return (
     <Page>
       <Container className="py-16 space-y-8">
         <header className="space-y-2">
           <p className="text-sm font-medium uppercase tracking-wide text-slate-500">
-            {formatDate(match.matchDate)}
+            {match?.matchDate ? formatDate(match.matchDate) : ''}
           </p>
           <h1 className="text-3xl font-bold text-slate-900">
-            {match.matchTitle}
+            {match?.matchTitle}
           </h1>
         </header>
         {mainImage && (
@@ -70,16 +69,16 @@ export default function MatchDetail() {
             <Image
               asset={mainImage.asset._ref}
               className="max-h-[40vh] max-w-full h-auto w-auto object-contain"
-              alt={match.matchTitle || "Match image"}
+              alt={match?.matchTitle || "Match image"}
             />
           </div>
         )}
         <section className="prose max-w-none">
-          <RichText value={match.matchDescription ?? []} />
+          <RichText value={match?.matchDescription ?? []} />
         </section>
       </Container>
       <Container>
-        <GridGallery images={match.matchImages?.slice(1) ?? []} title="Match Images" />
+        <GridGallery images={match?.matchImages?.slice(1) ?? []} title="Match Images" />
       </Container>
     </Page>
   );

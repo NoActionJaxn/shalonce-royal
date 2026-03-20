@@ -30,9 +30,8 @@ export async function loader() {
     const gallery = galleryPage?.galleryImages;
 
     return { siteTitle, pageTitle, title, content, gallery };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return { siteTitle: undefined, pageTitle: undefined, title: undefined, content: undefined, gallery: undefined };
   }
 }
 

@@ -22,12 +22,16 @@ interface LoaderData {
 }
 
 export const loader = async () => {
-  const client = getSanityClient();
-  const settings: WrestlingSiteSettings = await client.fetch(WRESTLING_SITE_SETTINGS_REQUEST);
+  try {
+    const client = getSanityClient();
+    const settings: WrestlingSiteSettings = await client.fetch(WRESTLING_SITE_SETTINGS_REQUEST);
 
-  const favicon = settings?.favicon;
+    const favicon = settings?.favicon;
 
-  return { favicon };
+    return { favicon };
+  } catch {
+    return { favicon: undefined };
+  }
 }
 
 export const links: Route.LinksFunction = () => [
@@ -45,7 +49,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = useLoaderData<LoaderData>();
-  const favicon = data.favicon;
+  const favicon = data?.favicon;
 
   return (
     <html lang="en">
