@@ -37,7 +37,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <article className="flex h-full flex-col overflow-hidden border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+    <article className="flex h-full flex-col overflow-hidden border border-slate-200 bg-white shadow-sm">
       <div className="aspect-video w-full overflow-hidden bg-slate-100">
         {product.images[0] ? (
           <img
