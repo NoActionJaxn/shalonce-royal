@@ -2,6 +2,9 @@
   "name": "shalance-royal",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
