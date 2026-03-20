@@ -1,5 +1,5 @@
 import { type PortableTextProps, PortableText } from "@portabletext/react";
 
-export default function RichText({ components, ...rest }: PortableTextProps) {
+export default function RichText({ ...rest }: PortableTextProps) {
   return <PortableText {...rest} />;
 }

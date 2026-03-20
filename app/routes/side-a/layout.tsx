@@ -48,16 +48,16 @@ export async function loader(): Promise<LoaderData> {
   }
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggleMenu = () => {
     setIsOpen((prev) => !prev);
-  }
+  };
 
   const handleCloseMenu = () => {
     setIsOpen(false);
-  }
+  };
 
   useOnResize({ onResize: handleCloseMenu });
 
@@ -69,17 +69,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <CartProvider>
       <PageContainer>
-        <Header
-          logo={logo}
-          menu={menu}
-          isOpen={isOpen}
-          toggleMenu={handleToggleMenu}
-        />
-        <MobileMenu
-          menu={menu}
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-        />
+        <Header logo={logo} menu={menu} isOpen={isOpen} toggleMenu={handleToggleMenu} />
+        <MobileMenu menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} />
         <Outlet />
         <Footer menu={menu} socials={socials} description={description} />
         <CartDrawer />

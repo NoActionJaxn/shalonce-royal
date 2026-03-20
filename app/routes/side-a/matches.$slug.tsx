@@ -4,7 +4,10 @@ import Page from "~/components/Page";
 import RichText from "~/components/RichText";
 import Image from "~/components/Image";
 import { getSanityClient } from "~/lib/client";
-import { WRESTLING_SITE_MATCH_BY_SLUG_REQUEST, WRESTLING_SITE_SETTINGS_REQUEST } from "~/constants/requests";
+import {
+  WRESTLING_SITE_MATCH_BY_SLUG_REQUEST,
+  WRESTLING_SITE_SETTINGS_REQUEST,
+} from "~/constants/requests";
 import type { WrestlingMatch, WrestlingSiteSettings } from "~/types/sanity";
 import type { Route } from "./+types/matches.$slug";
 import { formatDate } from "~/util/formatDate";
@@ -42,9 +45,7 @@ export const meta: Route.MetaFunction = ({ data }) => {
   const { siteTitle, match } = data as LoaderData;
   const pageTitle = match.matchTitle ?? "Match";
 
-  return [
-    { title: `${siteTitle} | ${pageTitle}` },
-  ];
+  return [{ title: `${siteTitle} | ${pageTitle}` }];
 };
 
 export default function MatchDetail() {
@@ -58,14 +59,15 @@ export default function MatchDetail() {
       <Container className="py-16 space-y-8">
         <header className="space-y-2">
           <p className="text-sm font-medium uppercase tracking-wide text-slate-500">
-            {match?.matchDate ? formatDate(match.matchDate) : ''}
+            {match?.matchDate ? formatDate(match.matchDate) : ""}
           </p>
-          <h1 className="text-3xl font-bold text-slate-900">
-            {match?.matchTitle}
-          </h1>
+          <h1 className="text-3xl font-bold text-slate-900">{match?.matchTitle}</h1>
         </header>
         {mainImage && (
-          <div className="flex items-center justify-center bg-slate-200 rounded-lg" style={{ maxHeight: "40vh" }}>
+          <div
+            className="flex items-center justify-center bg-slate-200 rounded-lg"
+            style={{ maxHeight: "40vh" }}
+          >
             <Image
               asset={mainImage.asset._ref}
               className="max-h-[40vh] max-w-full h-auto w-auto object-contain"

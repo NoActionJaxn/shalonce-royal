@@ -7,18 +7,25 @@ export interface PageProps extends React.HTMLAttributes<HTMLDivElement> {
   noPadding?: boolean;
 }
 
-const Page = ({ children, className = "", shouldSnap = true, snapEnd = false, noPadding = false, ...rest }: PageProps) => {
+const Page = ({
+  children,
+  className = "",
+  shouldSnap = true,
+  snapEnd = false,
+  noPadding = false,
+  ...rest
+}: PageProps) => {
   return (
     <div
       data-page
       className={classNames(
-        'min-h-screen w-full',
+        "min-h-screen w-full",
         {
-          'snap-start': shouldSnap && !snapEnd,
-          'snap-end': shouldSnap && snapEnd,
-          'py-20': !noPadding,
+          "snap-start": shouldSnap && !snapEnd,
+          "snap-end": shouldSnap && snapEnd,
+          "py-20": !noPadding,
         },
-        className
+        className,
       )}
       {...rest}
     >

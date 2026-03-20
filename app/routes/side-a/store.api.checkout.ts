@@ -20,7 +20,11 @@ export async function action({ request }: Route.ActionArgs) {
 
   // Validate each item has required fields
   for (const item of items) {
-    if (typeof item.priceId !== "string" || typeof item.quantity !== "number" || item.quantity < 1) {
+    if (
+      typeof item.priceId !== "string" ||
+      typeof item.quantity !== "number" ||
+      item.quantity < 1
+    ) {
       return Response.json({ error: "Invalid item in cart" }, { status: 400 });
     }
   }

@@ -7,15 +7,14 @@ export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function Container({ children, fluid = false, className, ...rest }: ContainerProps) {
   return (
-    <div className={
-      classNames(
-        fluid
-          ? "container-fluid"
-          : "container mx-auto",
-          "px-6 sm:px-8 lg:px-16",
-        className
+    <div
+      className={classNames(
+        fluid ? "container-fluid" : "container mx-auto",
+        "px-6 sm:px-8 lg:px-16",
+        className,
       )}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </div>
   );

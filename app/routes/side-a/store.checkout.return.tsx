@@ -47,7 +47,14 @@ export default function CheckoutReturn() {
       <Page>
         <Container className="flex flex-col items-center justify-center py-32 space-y-6 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-8 w-8 text-green-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-8 w-8 text-green-600"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" />
             </svg>
           </div>

@@ -16,7 +16,8 @@ export function basicFormat(date: Date, formatStr: string, culture?: string) {
 
   // Day-of-month labels inside each square
   if (
-    (formatStr === "d" || formatStr === "dd") ||
+    formatStr === "d" ||
+    formatStr === "dd" ||
     (formatStr.includes("d") && !formatStr.includes("M") && !formatStr.includes("y"))
   ) {
     return String(date.getDate());
@@ -34,7 +35,7 @@ export function basicFormat(date: Date, formatStr: string, culture?: string) {
   return new Intl.DateTimeFormat(locale).format(date);
 }
 
-export function basicParse(value: string, _formatStr: string, _culture?: string) {
+export function basicParse(value: string) {
   const d = new Date(value);
   return isNaN(d.getTime()) ? new Date() : d;
 }

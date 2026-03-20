@@ -1,7 +1,10 @@
 import { useLoaderData } from "react-router";
 import Container from "~/components/Container";
 import Page from "~/components/Page";
-import { WRESTLING_SITE_SETTINGS_REQUEST, WRESTLING_SITE_EVENTS_PAGE_REQUEST } from "~/constants/requests";
+import {
+  WRESTLING_SITE_SETTINGS_REQUEST,
+  WRESTLING_SITE_EVENTS_PAGE_REQUEST,
+} from "~/constants/requests";
 import { getSanityClient } from "~/lib/client";
 import RichText from "~/components/RichText";
 import EventCalendar from "~/components/EventCalendar";
@@ -32,17 +35,21 @@ export async function loader() {
 
     return { siteTitle, pageTitle, title, description, events };
   } catch {
-    return { siteTitle: undefined, pageTitle: undefined, title: undefined, description: undefined, events: undefined };
+    return {
+      siteTitle: undefined,
+      pageTitle: undefined,
+      title: undefined,
+      description: undefined,
+      events: undefined,
+    };
   }
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
   const siteTitle = data?.siteTitle ?? "Shalancé Royal";
   const pageTitle = data?.pageTitle ?? "Events";
-  return [
-    { title: `${siteTitle} | ${pageTitle}` },
-  ];
-}
+  return [{ title: `${siteTitle} | ${pageTitle}` }];
+};
 
 export default function Events() {
   const data = useLoaderData<LoaderData>();

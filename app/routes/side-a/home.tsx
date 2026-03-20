@@ -1,10 +1,22 @@
 import { useLoaderData } from "react-router";
 import Page from "~/components/Page";
-import { WRESTLING_SITE_HOME_PAGE_REQUEST, WRESTLING_SITE_MATCHES_REQUEST, WRESTLING_SITE_SETTINGS_REQUEST, WRESTLING_SITE_EVENTS_PAGE_REQUEST } from "~/constants/requests";
+import {
+  WRESTLING_SITE_HOME_PAGE_REQUEST,
+  WRESTLING_SITE_MATCHES_REQUEST,
+  WRESTLING_SITE_SETTINGS_REQUEST,
+  WRESTLING_SITE_EVENTS_PAGE_REQUEST,
+} from "~/constants/requests";
 import { getSanityClient } from "~/lib/client";
 import Hero from "~/components/Hero";
 import Accolades from "~/components/Accolades";
-import type { WrestlingEvent, WrestlingEventsPage, WrestlingHomePage, WrestlingMatch, WrestlingSiteSettings } from "~/types/sanity";
+import type {
+  SanityBlock,
+  WrestlingEvent,
+  WrestlingEventsPage,
+  WrestlingHomePage,
+  WrestlingMatch,
+  WrestlingSiteSettings,
+} from "~/types/sanity";
 import type { Route } from "./+types/home";
 import Container from "~/components/Container";
 import MatchCard from "~/components/MatchCard";
@@ -17,9 +29,9 @@ interface LoaderData {
   hero: {
     title: string;
     subTitle: string;
-    content: any[];
+    content: SanityBlock[];
     backgroundImage?: WrestlingHomePage["heroBackgroundImage"];
-  }
+  };
   accolades: WrestlingHomePage["accolades"];
   matches: WrestlingMatch[];
   events: {
@@ -44,35 +56,41 @@ export async function loader() {
     const siteTitle = settings?.title;
     const pageTitle = home?.pageTitle;
 
-    const eventList = events?.upcomingEvents?.map((event: WrestlingEvent) => ({
-      title: event.eventTitle,
-      start: new Date(event.eventStartDate),
-      end: new Date(event.eventEndDate ?? event.eventStartDate),
-      allDay: !event.eventEndDate,
-      location: event.eventLocation,
-      eventUrl: event.eventUrl,
-    })) || [];
+    const eventList =
+      events?.upcomingEvents?.map((event: WrestlingEvent) => ({
+        title: event.eventTitle,
+        start: new Date(event.eventStartDate),
+        end: new Date(event.eventEndDate ?? event.eventStartDate),
+        allDay: !event.eventEndDate,
+        location: event.eventLocation,
+        eventUrl: event.eventUrl,
+      })) || [];
 
     const hero = {
       title: home?.heroTitle,
       subTitle: home?.heroSubtitle,
       content: home?.heroContent,
       backgroundImage: home?.heroBackgroundImage,
-    }
+    };
 
     return { siteTitle, pageTitle, hero, accolades: home?.accolades, matches, events: eventList };
   } catch {
-    return { siteTitle: undefined, pageTitle: undefined, hero: { title: '', subTitle: '', content: [], backgroundImage: undefined }, accolades: [], matches: [], events: [] };
+    return {
+      siteTitle: undefined,
+      pageTitle: undefined,
+      hero: { title: "", subTitle: "", content: [], backgroundImage: undefined },
+      accolades: [],
+      matches: [],
+      events: [],
+    };
   }
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
   const siteTitle = data?.siteTitle ?? "Shalancé Royal";
   const pageTitle = data?.pageTitle ?? "Home";
-  return [
-    { title: `${siteTitle} | ${pageTitle}` },
-  ];
-}
+  return [{ title: `${siteTitle} | ${pageTitle}` }];
+};
 
 export default function Home() {
   const data = useLoaderData<LoaderData>();
@@ -97,7 +115,14 @@ export default function Home() {
         {matches.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {matches.map((match) => (
-              <MatchCard key={match.slug.current} slug={match.slug} title={match.matchTitle} date={match.matchDate} description={match.matchDescription} images={match.matchImages} />
+              <MatchCard
+                key={match.slug.current}
+                slug={match.slug}
+                title={match.matchTitle}
+                date={match.matchDate}
+                description={match.matchDescription}
+                images={match.matchImages}
+              />
             ))}
           </div>
         ) : (

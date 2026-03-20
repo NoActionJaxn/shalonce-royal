@@ -5,9 +5,18 @@ import PageContainer from "~/components/PageContainer";
 import Page from "~/components/Page";
 import Container from "~/components/Container";
 import { getSanityClient } from "~/lib/client";
-import { ROOT_SIDES_REQUEST, ROOT_SITE_SETTINGS_REQUEST, WRESTLING_SITE_SETTINGS_REQUEST } from "~/constants/requests";
+import {
+  ROOT_SIDES_REQUEST,
+  ROOT_SITE_SETTINGS_REQUEST,
+  WRESTLING_SITE_SETTINGS_REQUEST,
+} from "~/constants/requests";
 import RichText from "~/components/RichText";
-import type { RootSiteSettings, SanityCallToAction, Side, WrestlingSiteSettings } from "~/types/sanity";
+import type {
+  RootSiteSettings,
+  SanityCallToAction,
+  Side,
+  WrestlingSiteSettings,
+} from "~/types/sanity";
 import Image from "~/components/Image";
 import { imageBuilder } from "~/util/imageBuilder";
 import type { Route } from "../+types/root";
@@ -23,13 +32,15 @@ export async function loader() {
   try {
     const client = getSanityClient();
     const rootSettings: RootSiteSettings = await client.fetch(ROOT_SITE_SETTINGS_REQUEST);
-    const wrestlingSettings: WrestlingSiteSettings = await client.fetch(WRESTLING_SITE_SETTINGS_REQUEST);
+    const wrestlingSettings: WrestlingSiteSettings = await client.fetch(
+      WRESTLING_SITE_SETTINGS_REQUEST,
+    );
 
     const wrestlingSocials = wrestlingSettings?.socialNetworkItems || [];
 
     const sides: Side[] = await client.fetch(ROOT_SIDES_REQUEST);
 
-    const sideA = sides[0]
+    const sideA = sides[0];
     const sideB = sides[1];
 
     return { settings: rootSettings, wrestlingSocials, sideA, sideB };
@@ -38,9 +49,8 @@ export async function loader() {
   }
 }
 
-export const meta: Route.MetaFunction = ({ data }) => {
+export const meta: Route.MetaFunction = () => {
   return [{ title: "What are we listening to?" }];
-
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -49,7 +59,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function HomeRoute() {
   const data = useLoaderData<LoaderData>();
-  const settings = data?.settings;
+  // const settings = data?.settings;
   const socialsSideA = data?.wrestlingSocials ?? [];
   const socialsSideB: SanityCallToAction[] = [];
   const sideA = data?.sideA;
@@ -62,15 +72,17 @@ export default function HomeRoute() {
   const sub = isSideA ? sideA?.subtitle : sideB?.subtitle;
   const content = isSideA ? sideA?.content : sideB?.content;
 
-  const image = isSideA
-    ? sideA?.image
-    : sideB?.image
+  const image = isSideA ? sideA?.image : sideB?.image;
 
   const bgRefA = sideA?.backgroundImage?.asset?._ref;
   const bgRefB = sideB?.backgroundImage?.asset?._ref;
   const backgroundImage = isSideA
-    ? (bgRefA ? imageBuilder(bgRefA).url() : undefined)
-    : (bgRefB ? imageBuilder(bgRefB).url() : undefined);
+    ? bgRefA
+      ? imageBuilder(bgRefA).url()
+      : undefined
+    : bgRefB
+      ? imageBuilder(bgRefB).url()
+      : undefined;
 
   const backgroundColor = isSideA
     ? sideA?.backgroundColor?.hex || "#000000"
@@ -92,7 +104,10 @@ export default function HomeRoute() {
         color: textColor,
       }}
     >
-      <div className="absolute inset-0 pointer-events-none" style={{ backgroundColor, opacity: 0.95 }} />
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ backgroundColor, opacity: 0.95 }}
+      />
       <Container className="relative z-10">
         <div className="flex items-center justify-center mb-0 md:-mb-32 lg:-mb-56">
           <Image asset={image?.asset?._ref} alt={heading} className="w-full max-w-7xl" />
@@ -106,13 +121,33 @@ export default function HomeRoute() {
         <div className="text-center space-y-3">
           {isSideA ? (
             <>
-              <Link to="/side-a" className="font-bold text-2xl md:text-4xl py-3 px-5 hover:underline">Play {heading}</Link>
-              <button className="font-bold text-2xl md:text-4xl py-3 px-5 hover:underline cursor-pointer" onClick={() => setIsSideA(false)}>Check out Side B</button>
+              <Link
+                to="/side-a"
+                className="font-bold text-2xl md:text-4xl py-3 px-5 hover:underline"
+              >
+                Play {heading}
+              </Link>
+              <button
+                className="font-bold text-2xl md:text-4xl py-3 px-5 hover:underline cursor-pointer"
+                onClick={() => setIsSideA(false)}
+              >
+                Check out Side B
+              </button>
             </>
           ) : (
             <>
-              <button disabled className="font-bold text-4xl md:text-4xl py-3 px-5 cursor-not-allowed">{heading} Coming Soon</button>
-              <button onClick={() => setIsSideA(true)} className="font-bold text-4xl md:text-4xl py-3 px-5 cursor-pointer hover:underline">Flip to Side A</button>
+              <button
+                disabled
+                className="font-bold text-4xl md:text-4xl py-3 px-5 cursor-not-allowed"
+              >
+                {heading} Coming Soon
+              </button>
+              <button
+                onClick={() => setIsSideA(true)}
+                className="font-bold text-4xl md:text-4xl py-3 px-5 cursor-pointer hover:underline"
+              >
+                Flip to Side A
+              </button>
             </>
           )}
         </div>
@@ -131,7 +166,10 @@ export default function HomeRoute() {
                         "text-4xl hover:underline opacity-70 hover:opacity-100 transition-opacity duration-200",
                       )}
                     >
-                      <i className={classNames(social.icon.iconName, social.icon.iconStyle)} aria-hidden="true" />{" "}
+                      <i
+                        className={classNames(social.icon.iconName, social.icon.iconStyle)}
+                        aria-hidden="true"
+                      />{" "}
                       <span className="sr-only">{social.label}</span>
                     </Link>
                   </li>
@@ -139,7 +177,6 @@ export default function HomeRoute() {
               </ul>
             </>
           )}
-
         </nav>
       </Container>
     </Page>

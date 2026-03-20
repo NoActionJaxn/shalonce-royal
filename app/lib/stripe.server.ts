@@ -7,9 +7,7 @@ export function getStripe(): Stripe {
 
   const key = process.env.STRIPE_SECRET_KEY;
   if (!key) {
-    throw new Error(
-      "Missing STRIPE_SECRET_KEY. Set it in your environment (e.g., .env)."
-    );
+    throw new Error("Missing STRIPE_SECRET_KEY. Set it in your environment (e.g., .env).");
   }
 
   stripeInstance = new Stripe(key);

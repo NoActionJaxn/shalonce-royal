@@ -1,9 +1,6 @@
 import { useCallback } from "react";
 import { Link } from "react-router";
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout,
-} from "@stripe/react-stripe-js";
+import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import Container from "~/components/Container";
 import Page from "~/components/Page";
 import { stripePromise } from "~/lib/stripe.client";
@@ -48,9 +45,7 @@ export default function CheckoutPage() {
     return (
       <Page>
         <Container className="py-32 text-center">
-          <p className="text-slate-600">
-            Checkout is not available. Stripe is not configured.
-          </p>
+          <p className="text-slate-600">Checkout is not available. Stripe is not configured.</p>
         </Container>
       </Page>
     );
@@ -59,10 +54,7 @@ export default function CheckoutPage() {
   return (
     <Page>
       <Container className="py-16">
-        <EmbeddedCheckoutProvider
-          stripe={stripePromise}
-          options={{ fetchClientSecret }}
-        >
+        <EmbeddedCheckoutProvider stripe={stripePromise} options={{ fetchClientSecret }}>
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
       </Container>

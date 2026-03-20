@@ -1,6 +1,9 @@
 import Container from "~/components/Container";
 import Page from "~/components/Page";
-import { WRESTLING_SITE_SETTINGS_REQUEST, WRESTLING_SITE_GALLERY_PAGE_REQUEST } from "~/constants/requests";
+import {
+  WRESTLING_SITE_SETTINGS_REQUEST,
+  WRESTLING_SITE_GALLERY_PAGE_REQUEST,
+} from "~/constants/requests";
 import { getSanityClient } from "~/lib/client";
 import type { Route } from "./+types/gallery";
 import type { WrestlingSiteSettings, WrestlingGalleryPage } from "~/types/sanity";
@@ -21,7 +24,9 @@ export async function loader() {
     const client = getSanityClient();
 
     const settings: WrestlingSiteSettings = await client.fetch(WRESTLING_SITE_SETTINGS_REQUEST);
-    const galleryPage: WrestlingGalleryPage = await client.fetch(WRESTLING_SITE_GALLERY_PAGE_REQUEST);
+    const galleryPage: WrestlingGalleryPage = await client.fetch(
+      WRESTLING_SITE_GALLERY_PAGE_REQUEST,
+    );
 
     const siteTitle = settings?.title;
     const pageTitle = galleryPage?.pageTitle;
@@ -31,21 +36,25 @@ export async function loader() {
 
     return { siteTitle, pageTitle, title, content, gallery };
   } catch {
-    return { siteTitle: undefined, pageTitle: undefined, title: undefined, content: undefined, gallery: undefined };
+    return {
+      siteTitle: undefined,
+      pageTitle: undefined,
+      title: undefined,
+      content: undefined,
+      gallery: undefined,
+    };
   }
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
   const siteTitle = data?.siteTitle ?? "Shalancé Royal";
   const pageTitle = data?.pageTitle ?? "Home";
-  return [
-    { title: `${siteTitle} | ${pageTitle}` },
-  ];
-}
+  return [{ title: `${siteTitle} | ${pageTitle}` }];
+};
 
 export default function Gallery() {
   const data = useLoaderData<LoaderData>();
-  
+
   const title = data?.title;
   const content = data?.content;
   const gallery = data?.gallery;

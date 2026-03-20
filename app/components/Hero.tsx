@@ -20,11 +20,7 @@ export default function Hero({
   ...rest
 }: HeroProps) {
   return (
-    <Container
-      className={classNames("relative py-8", className)}
-      fluid
-      {...rest}
-    >
+    <Container className={classNames("relative py-8", className)} fluid {...rest}>
       {backgroundImage && (
         <div
           aria-hidden
@@ -37,9 +33,7 @@ export default function Hero({
       )}
       <Container className="grid grid-cols-1 md:grid-cols-2 min-h-75 md:h-100 lg:h-150 gap-16 py-20">
         <div />
-        <div
-          className=""
-        >
+        <div className="">
           <div className="space-y-4">
             <div className="space-y-2">
               <h1 className="text-4xl">{title}</h1>

@@ -22,9 +22,8 @@ export default function ContactPage() {
         <header className="space-y-3">
           <h1 className="text-4xl font-bold tracking-tight">Contact</h1>
           <p className="text-sm text-slate-600">
-            For wrestling bookings, music performances, and media appearances,
-            please choose the appropriate tab below and fill out the form with as
-            much detail as possible.
+            For wrestling bookings, music performances, and media appearances, please choose the
+            appropriate tab below and fill out the form with as much detail as possible.
           </p>
         </header>
 

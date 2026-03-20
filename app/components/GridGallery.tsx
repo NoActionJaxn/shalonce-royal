@@ -19,10 +19,7 @@ export default function GridGallery({ title, images }: GridGalleryProps) {
     setSelectedIndex(null);
   };
 
-  const selectedImage =
-    selectedIndex != null && images
-      ? images[selectedIndex]
-      : undefined;
+  const selectedImage = selectedIndex != null && images ? images[selectedIndex] : undefined;
 
   return (
     <>
@@ -60,5 +57,5 @@ export default function GridGallery({ title, images }: GridGalleryProps) {
         </div>
       )}
     </>
-  )
+  );
 }

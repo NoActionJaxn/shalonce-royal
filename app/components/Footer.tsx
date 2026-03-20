@@ -14,7 +14,7 @@ export default function Footer({
   logo: Logo,
   menu = [],
   socials = [],
-  description = "Shalancé Royal"
+  description = "Shalancé Royal",
 }: FooterProps) {
   return (
     <footer className="bg-black py-12 mt-16">
@@ -23,11 +23,13 @@ export default function Footer({
           <div className="col-span-1">
             <Link to="/" className="flex items-center gap-2">
               <div className="text-slate-200">
-                {Logo && <div><Logo /></div>}
+                {Logo && (
+                  <div>
+                    <Logo />
+                  </div>
+                )}
                 <div>
-                  <span className="text-lg font-semibold tracking-tight">
-                    Shalancé Royal
-                  </span>
+                  <span className="text-lg font-semibold tracking-tight">Shalancé Royal</span>
                 </div>
               </div>
             </Link>
@@ -52,21 +54,14 @@ export default function Footer({
             )}
           </div>
           <div className="col-span-1 flex flex-col justify-between">
-            <div>
-              {description && (
-                <p className="text-sm text-slate-300 mb-4">{description}</p>
-              )}
-            </div>
+            <div>{description && <p className="text-sm text-slate-300 mb-4">{description}</p>}</div>
             {socials.length > 0 && (
               <div className="flex items-center justify-end gap-4">
                 <h2 className="text-xs text-slate-300 uppercase">Follow Me</h2>
                 <ul className="flex flex-wrap gap-4">
                   {socials.map((item) => (
                     <li key={item.path}>
-                      <Link
-                        to={item.path}
-                        className="text-slate-300 text-xl"
-                      >
+                      <Link to={item.path} className="text-slate-300 text-xl">
                         <span className="sr-only">{item.label}</span>
                         <i className={classNames(item.icon?.prefix, item.icon?.iconName)} />
                       </Link>

@@ -11,20 +11,15 @@ export interface MobileMenuProps {
 export default function MobileMenu({ menu, isOpen, setIsOpen }: MobileMenuProps) {
   const closeMenu = () => {
     setIsOpen(false);
-  }
+  };
 
   return (
     <div
-      className={
-        classNames(
-          "fixed inset-0 z-30 flex flex-col transition-opacity duration-200 bg-slate-950 md:hidden",
-          isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        )
-      }
+      className={classNames(
+        "fixed inset-0 z-30 flex flex-col transition-opacity duration-200 bg-slate-950 md:hidden",
+        isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+      )}
     >
-
       <nav className="flex flex-1 flex-col items-center justify-center gap-6">
         {menu.map((item) => (
           <Link
@@ -38,5 +33,5 @@ export default function MobileMenu({ menu, isOpen, setIsOpen }: MobileMenuProps)
         ))}
       </nav>
     </div>
-  )
-};
+  );
+}

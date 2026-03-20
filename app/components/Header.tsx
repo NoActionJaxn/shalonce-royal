@@ -22,11 +22,9 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
 
   useEffect(() => {
     function isPointOverDark(x: number, y: number) {
-      const stack = (document as any).elementsFromPoint
-        ? (document as any).elementsFromPoint(x, y) as Element[]
-        : [document.elementFromPoint(x, y)].filter(Boolean) as Element[];
+      const stack = document.elementsFromPoint(x, y);
       for (const el of stack) {
-        if (el?.closest('[data-dark]')) return true;
+        if (el?.closest("[data-dark]")) return true;
       }
       return false;
     }
@@ -45,18 +43,18 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
     // Run once now and again on next frame to catch route paint
     update();
     const raf = requestAnimationFrame(update);
-    window.addEventListener('scroll', update, { passive: true });
-    document.addEventListener('scroll', update, { passive: true, capture: true });
-    window.addEventListener('touchmove', update, { passive: true });
-    window.addEventListener('wheel', update, { passive: true });
-    window.addEventListener('resize', update);
+    window.addEventListener("scroll", update, { passive: true });
+    document.addEventListener("scroll", update, { passive: true, capture: true });
+    window.addEventListener("touchmove", update, { passive: true });
+    window.addEventListener("wheel", update, { passive: true });
+    window.addEventListener("resize", update);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', update);
-      document.removeEventListener('scroll', update, { capture: true } as any);
-      window.removeEventListener('touchmove', update);
-      window.removeEventListener('wheel', update);
-      window.removeEventListener('resize', update);
+      window.removeEventListener("scroll", update);
+      document.removeEventListener("scroll", update, { capture: true });
+      window.removeEventListener("touchmove", update);
+      window.removeEventListener("wheel", update);
+      window.removeEventListener("resize", update);
     };
   }, [isOpen, location.pathname]);
   return (
@@ -68,7 +66,7 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
           ? isOverDark
             ? "bg-black/80 backdrop-blur-md"
             : "bg-white/80 backdrop-blur-md"
-          : "bg-transparent"
+          : "bg-transparent",
       )}
     >
       <Container fluid className="flex justify-between items-center h-28">
@@ -80,12 +78,9 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
               </div>
             ) : (
               <div>
-                <span className="text-lg font-semibold tracking-tight">
-                  Shalancé Royal
-                </span>
+                <span className="text-lg font-semibold tracking-tight">Shalancé Royal</span>
               </div>
             )}
-
           </div>
         </Link>
 
@@ -96,7 +91,9 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
               to={item.path}
               className={classNames(
                 "text-sm font-medium transition-colors",
-                isOverDark ? "text-slate-100 hover:text-slate-200" : "text-slate-900 hover:text-slate-700"
+                isOverDark
+                  ? "text-slate-100 hover:text-slate-200"
+                  : "text-slate-900 hover:text-slate-700",
               )}
             >
               {item.label}

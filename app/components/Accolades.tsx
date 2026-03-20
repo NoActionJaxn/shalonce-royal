@@ -1,4 +1,3 @@
-
 import Container from "~/components/Container";
 import type { WrestlingAccolade } from "~/types/sanity";
 import { LinkButton } from "./Buttons";
@@ -9,7 +8,7 @@ export interface AccoladesProps {
   className?: string;
 }
 
-export default function Accolades({ accolades, title, className = "" }: AccoladesProps) {
+export default function Accolades({ accolades, className = "" }: AccoladesProps) {
   const topThree: WrestlingAccolade[] = (accolades || [])
     .slice() // copy
     .sort((a, b) => (b.year ?? 0) - (a.year ?? 0))

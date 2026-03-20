@@ -6,7 +6,7 @@ export interface ContentContainerProps extends React.HTMLAttributes<HTMLDivEleme
 
 export default function ContentContainer({ children, className, ...rest }: ContentContainerProps) {
   return (
-    <div className={classNames("grow",className,)} {...rest}>
+    <div className={classNames("grow", className)} {...rest}>
       {children}
     </div>
   );

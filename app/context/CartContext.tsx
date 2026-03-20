@@ -30,7 +30,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
           items: state.items.map((i) =>
             i.priceId === action.payload.priceId
               ? { ...i, quantity: i.quantity + (action.payload.quantity ?? 1) }
-              : i
+              : i,
           ),
         };
       }
@@ -46,7 +46,7 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       }
       return {
         items: state.items.map((i) =>
-          i.priceId === action.payload.priceId ? { ...i, quantity: action.payload.quantity } : i
+          i.priceId === action.payload.priceId ? { ...i, quantity: action.payload.quantity } : i,
         ),
       };
     case "CLEAR":
@@ -119,7 +119,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const total = state.items.reduce((sum, i) => sum + i.unitAmount * i.quantity, 0);
 
   return (
-    <CartContext value={{ items: state.items, addItem, removeItem, updateQuantity, clearCart, itemCount, total }}>
+    <CartContext
+      value={{
+        items: state.items,
+        addItem,
+        removeItem,
+        updateQuantity,
+        clearCart,
+        itemCount,
+        total,
+      }}
+    >
       {children}
     </CartContext>
   );

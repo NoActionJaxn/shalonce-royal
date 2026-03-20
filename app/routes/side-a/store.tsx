@@ -38,8 +38,7 @@ export async function loader(): Promise<LoaderData> {
 
     const products: SerializedProduct[] = stripeProducts.data.map((p) => {
       const price = p.default_price;
-      const resolved =
-        price && typeof price === "object" && "unit_amount" in price ? price : null;
+      const resolved = price && typeof price === "object" && "unit_amount" in price ? price : null;
 
       return {
         id: p.id,
@@ -76,9 +75,7 @@ export default function Store() {
       <Container className="pt-16 space-y-8">
         <div className="space-y-2">
           <h1 className="text-4xl font-bold">Store</h1>
-          <p className="text-sm text-slate-600">
-            Official merchandise and digital goods.
-          </p>
+          <p className="text-sm text-slate-600">Official merchandise and digital goods.</p>
         </div>
 
         {products.length === 0 ? (

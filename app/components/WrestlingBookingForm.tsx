@@ -20,7 +20,7 @@ export default function WrestlingBookingForm() {
   const onSubmit = (data: WrestlingBookingFormValues) => {
     // Replace with real submission logic (e.g., action or API)
     // For now, just reset after a successful submit
-    // eslint-disable-next-line no-console
+
     console.log("Wrestling booking submitted", data);
     reset();
   };
@@ -30,8 +30,8 @@ export default function WrestlingBookingForm() {
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold">Wrestling bookings</h2>
         <p className="text-sm text-slate-600">
-          <strong>Rates:</strong> Inquire for rates. Pricing varies based on travel,
-          event profile, and match requirements.
+          <strong>Rates:</strong> Inquire for rates. Pricing varies based on travel, event profile,
+          and match requirements.
         </p>
       </div>
 
@@ -52,9 +52,7 @@ export default function WrestlingBookingForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && (
-            <p className="text-xs text-red-600">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="text-xs text-red-600">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -73,9 +71,7 @@ export default function WrestlingBookingForm() {
               },
             })}
           />
-          {errors.email && (
-            <p className="text-xs text-red-600">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-xs text-red-600">{errors.email.message}</p>}
         </div>
       </div>
 
@@ -102,9 +98,7 @@ export default function WrestlingBookingForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("eventDate", { required: "Event date is required" })}
           />
-          {errors.eventDate && (
-            <p className="text-xs text-red-600">{errors.eventDate.message}</p>
-          )}
+          {errors.eventDate && <p className="text-xs text-red-600">{errors.eventDate.message}</p>}
         </div>
 
         <div className="space-y-1">
