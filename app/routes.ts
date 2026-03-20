@@ -15,6 +15,7 @@ export default [
     route("side-a/store/checkout", "./routes/side-a/store.checkout.tsx"),
     route("side-a/store/checkout/return", "./routes/side-a/store.checkout.return.tsx"),
     route("side-a/store/api/checkout", "./routes/side-a/store.api.checkout.ts"),
+    route("side-a/*", "./routes/side-a/catch-all.tsx"),
   ]),
 
   layout("./routes/side-b/layout.tsx", [route("side-b", "./routes/side-b/home.tsx")]),
