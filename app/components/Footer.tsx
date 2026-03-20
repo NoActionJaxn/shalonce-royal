@@ -14,7 +14,7 @@ export default function Footer({
   logo: Logo,
   menu = [],
   socials = [],
-  description = "Shalancé Royal",
+  description = "Shaloncé Royal",
 }: FooterProps) {
   return (
     <footer className="bg-black py-12 mt-16">
@@ -29,7 +29,7 @@ export default function Footer({
                   </div>
                 )}
                 <div>
-                  <span className="text-lg font-semibold tracking-tight">Shalancé Royal</span>
+                  <span className="text-lg font-semibold tracking-tight">Shaloncé Royal</span>
                 </div>
               </div>
             </Link>

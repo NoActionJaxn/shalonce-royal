@@ -46,7 +46,7 @@ export async function loader() {
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
-  const siteTitle = data?.siteTitle ?? "Shalancé Royal";
+  const siteTitle = data?.siteTitle ?? "Shaloncé Royal";
   const pageTitle = data?.pageTitle ?? "Events";
   return [{ title: `${siteTitle} | ${pageTitle}` }];
 };

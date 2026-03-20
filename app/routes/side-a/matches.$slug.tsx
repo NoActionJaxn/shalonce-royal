@@ -31,7 +31,7 @@ export async function loader({ params }: Route.LoaderArgs) {
       throw new Response("Match not found", { status: 404 });
     }
 
-    const siteTitle = settings?.title ?? "Shalancé Royal";
+    const siteTitle = settings?.title ?? "Shaloncé Royal";
 
     return { siteTitle, match } satisfies LoaderData;
   } catch {
@@ -40,7 +40,7 @@ export async function loader({ params }: Route.LoaderArgs) {
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
-  if (!data) return [{ title: "Shalancé Royal | Match" }];
+  if (!data) return [{ title: "Shaloncé Royal | Match" }];
 
   const { siteTitle, match } = data as LoaderData;
   const pageTitle = match.matchTitle ?? "Match";

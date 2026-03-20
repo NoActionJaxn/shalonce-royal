@@ -78,7 +78,7 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
               </div>
             ) : (
               <div>
-                <span className="text-lg font-semibold tracking-tight">Shalancé Royal</span>
+                <span className="text-lg font-semibold tracking-tight">Shaloncé Royal</span>
               </div>
             )}
           </div>
