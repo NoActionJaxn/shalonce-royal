@@ -30,7 +30,7 @@ export async function loader(): Promise<LoaderData> {
     const stripe = getStripe();
 
     const [stripeProducts, settings] = await Promise.all([
-      stripe.products.list({ active: true, expand: ["data.default_price"] }),
+      stripe.products.list({ active: true, limit: 20, expand: ["data.default_price"] }),
       getSanityClient()
         .fetch<WrestlingSiteSettings>(WRESTLING_SITE_SETTINGS_REQUEST)
         .catch(() => null),
