@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useReducer, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+  type ReactNode,
+} from "react";
 
 export interface CartItem {
   priceId: string;
@@ -111,9 +118,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     dispatch({ type: "UPDATE_QUANTITY", payload: { priceId, quantity } });
   };
 
-  const clearCart = () => {
+  const clearCart = useCallback(() => {
     dispatch({ type: "CLEAR" });
-  };
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Storage unavailable
+    }
+  }, []);
 
   const itemCount = state.items.reduce((sum, i) => sum + i.quantity, 0);
   const total = state.items.reduce((sum, i) => sum + i.unitAmount * i.quantity, 0);
