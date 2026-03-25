@@ -103,6 +103,7 @@ export default function HomeRoute() {
         backgroundSize: "cover",
         color: textColor,
       }}
+      noPadding
     >
       <div
         className="absolute inset-0 pointer-events-none"
