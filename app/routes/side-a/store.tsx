@@ -1,8 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, useNavigation } from "react-router";
 import Container from "~/components/Container";
 import Page from "~/components/Page";
-import ProductCard from "~/components/ProductCard";
+import ProductCard, { ProductCardSkeleton } from "~/components/ProductCard";
 import { getStripe } from "~/lib/stripe.server";
 import { getSanityClient } from "~/lib/client";
 import { WRESTLING_SITE_SETTINGS_REQUEST } from "~/constants/requests";
@@ -73,6 +73,8 @@ type SortOrder = "newest" | "oldest";
 
 export default function Store() {
   const data = useLoaderData<LoaderData>();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
   const products = useMemo(() => data?.products ?? [], [data]);
   const [sortOrder, setSortOrder] = useState<SortOrder>("newest");
   const [colCount, setColCount] = useState(1);
@@ -123,7 +125,17 @@ export default function Store() {
           )}
         </div>
 
-        {products.length === 0 ? (
+        {isLoading ? (
+          <div className="flex gap-6">
+            {Array.from({ length: colCount }, (_, colIndex) => (
+              <div key={colIndex} className="flex-1 space-y-6">
+                {Array.from({ length: 2 }, (_, i) => (
+                  <ProductCardSkeleton key={i} />
+                ))}
+              </div>
+            ))}
+          </div>
+        ) : products.length === 0 ? (
           <p className="py-16 text-center text-slate-500">
             No products available right now. Check back soon!
           </p>

@@ -21,6 +21,24 @@ export interface ProductCardProps {
   };
 }
 
+export function ProductCardSkeleton() {
+  return (
+    <article className="flex break-inside-avoid flex-col overflow-hidden border border-slate-200 bg-white shadow-sm">
+      <div className="aspect-video w-full animate-pulse bg-slate-200" />
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        <div className="flex-1 space-y-2">
+          <div className="h-5 w-3/4 animate-pulse rounded bg-slate-200" />
+          <div className="h-4 w-full animate-pulse rounded bg-slate-200" />
+        </div>
+        <div className="flex items-center justify-between">
+          <div className="h-4 w-16 animate-pulse rounded bg-slate-200" />
+          <div className="h-9 w-24 animate-pulse rounded bg-slate-200" />
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export default function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart();
 
@@ -40,7 +58,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     <article className="flex break-inside-avoid flex-col overflow-hidden border border-slate-200 bg-white shadow-sm">
       <div className="w-full overflow-hidden bg-slate-100">
         {product.images[0] ? (
-          <img src={product.images[0]} alt={product.name} className="w-full object-cover" />
+          <img
+            src={product.images[0]}
+            alt={product.name}
+            loading="lazy"
+            decoding="async"
+            sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="w-full object-cover"
+          />
         ) : (
           <div className="flex aspect-video w-full items-center justify-center text-slate-300">
             <svg
