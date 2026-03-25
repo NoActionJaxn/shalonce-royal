@@ -36,10 +36,10 @@ export default function Hero({
         <div className="flex justify-center items-center drop-shadow-lg">
           <div className="space-y-4">
             <div className="space-y-2">
-              <h1 className="text-6xl font-bold">{title}</h1>
-              <h2 className="text-4xl font-light text-amber-300">{subTitle}</h2>
+              <h1 className="text-4xl lg:text-6xl font-bold">{title}</h1>
+              <h2 className="text-2xl lg:text-4xl font-light text-amber-300">{subTitle}</h2>
             </div>
-            <div className="text-xl space-y-3">
+            <div className="text-base lg:text-xl space-y-3">
               <RichText value={content} />
             </div>
           </div>

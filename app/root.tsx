@@ -16,6 +16,7 @@ import { getSanityClient } from "./lib/client";
 import type { WrestlingSiteSettings } from "./types/sanity";
 import { WRESTLING_SITE_SETTINGS_REQUEST } from "./constants/requests";
 import { imageBuilder } from "./util/imageBuilder";
+import { Analytics } from "@vercel/analytics/react";
 
 interface LoaderData {
   favicon?: WrestlingSiteSettings["favicon"];
@@ -69,6 +70,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ScrollRestoration />
         <script src="https://kit.fontawesome.com/1aad4926f4.js" crossOrigin="anonymous" defer />
         <Scripts />
+        <Analytics />
       </body>
     </html>
   );
