@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
 import PageContainer from "~/components/PageContainer";
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout() {
   return (
     <PageContainer>
       <Outlet />

@@ -1,7 +1,10 @@
 import { useLoaderData } from "react-router";
 import Container from "~/components/Container";
 import Page from "~/components/Page";
-import { WRESTLING_SITE_SETTINGS_REQUEST, WRESTLING_SITE_EVENTS_PAGE_REQUEST } from "~/constants/requests";
+import {
+  WRESTLING_SITE_SETTINGS_REQUEST,
+  WRESTLING_SITE_EVENTS_PAGE_REQUEST,
+} from "~/constants/requests";
 import { getSanityClient } from "~/lib/client";
 import RichText from "~/components/RichText";
 import EventCalendar from "~/components/EventCalendar";
@@ -31,19 +34,22 @@ export async function loader() {
     const events = eventsPage?.upcomingEvents;
 
     return { siteTitle, pageTitle, title, description, events };
-  } catch (err) {
-    if (err instanceof Response) throw err;
-    throw new Response("Sanity configuration error", { status: 500, statusText: "Sanity configuration error" });
+  } catch {
+    return {
+      siteTitle: undefined,
+      pageTitle: undefined,
+      title: undefined,
+      description: undefined,
+      events: undefined,
+    };
   }
 }
 
 export const meta: Route.MetaFunction = ({ data }) => {
-  const siteTitle = data?.siteTitle ?? "Shalancé Royal";
+  const siteTitle = data?.siteTitle ?? "Shaloncé Royal";
   const pageTitle = data?.pageTitle ?? "Events";
-  return [
-    { title: `${siteTitle} | ${pageTitle}` },
-  ];
-}
+  return [{ title: `${siteTitle} | ${pageTitle}` }];
+};
 
 export default function Events() {
   const data = useLoaderData<LoaderData>();
@@ -68,7 +74,11 @@ export default function Events() {
           <RichText value={description ?? []} />
         </div>
         <EventCalendar events={calendarEvents} />
-        <EventList title="Upcoming Events" events={calendarEvents} />
+        {calendarEvents.length > 0 ? (
+          <EventList title="Upcoming Events" events={calendarEvents} />
+        ) : (
+          <p className="py-12 text-center text-slate-400">No upcoming events scheduled.</p>
+        )}
       </Container>
     </Page>
   );

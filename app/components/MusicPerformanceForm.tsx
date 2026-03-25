@@ -21,7 +21,7 @@ export default function MusicPerformanceForm() {
 
   const onSubmit = (data: MusicPerformanceFormValues) => {
     // Replace with real submission logic
-    // eslint-disable-next-line no-console
+
     console.log("Music performance submitted", data);
     reset();
   };
@@ -31,8 +31,8 @@ export default function MusicPerformanceForm() {
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold">Music performances</h2>
         <p className="text-sm text-slate-600">
-          <strong>Rates:</strong> Inquire for rates. Fees depend on set length,
-          travel, and production needs. A deposit may be required to confirm dates.
+          <strong>Rates:</strong> Inquire for rates. Fees depend on set length, travel, and
+          production needs. A deposit may be required to confirm dates.
         </p>
       </div>
 
@@ -53,9 +53,7 @@ export default function MusicPerformanceForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && (
-            <p className="text-xs text-red-600">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="text-xs text-red-600">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -74,9 +72,7 @@ export default function MusicPerformanceForm() {
               },
             })}
           />
-          {errors.email && (
-            <p className="text-xs text-red-600">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-xs text-red-600">{errors.email.message}</p>}
         </div>
       </div>
 
@@ -103,9 +99,7 @@ export default function MusicPerformanceForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("eventDate", { required: "Event date is required" })}
           />
-          {errors.eventDate && (
-            <p className="text-xs text-red-600">{errors.eventDate.message}</p>
-          )}
+          {errors.eventDate && <p className="text-xs text-red-600">{errors.eventDate.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -118,9 +112,7 @@ export default function MusicPerformanceForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("venue", { required: "Venue is required" })}
           />
-          {errors.venue && (
-            <p className="text-xs text-red-600">{errors.venue.message}</p>
-          )}
+          {errors.venue && <p className="text-xs text-red-600">{errors.venue.message}</p>}
         </div>
       </div>
 
@@ -135,9 +127,7 @@ export default function MusicPerformanceForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("city", { required: "City is required" })}
           />
-          {errors.city && (
-            <p className="text-xs text-red-600">{errors.city.message}</p>
-          )}
+          {errors.city && <p className="text-xs text-red-600">{errors.city.message}</p>}
         </div>
 
         <div className="space-y-1">

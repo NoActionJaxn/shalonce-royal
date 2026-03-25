@@ -27,9 +27,7 @@ export default function EventList({ title, events = [] }: EventList) {
         <div className="space-y-4">
           {visibleEvents.map((event) => {
             const start = formatDate(event.start);
-            const end = event.end
-              ? formatDate(event.end)
-              : undefined;
+            const end = event.end ? formatDate(event.end) : undefined;
 
             return (
               <EventCard
@@ -47,9 +45,7 @@ export default function EventList({ title, events = [] }: EventList) {
           <div className="pt-2">
             <button
               type="button"
-              onClick={() =>
-                setVisibleCount((prev) => Math.min(prev + 3, events.length))
-              }
+              onClick={() => setVisibleCount((prev) => Math.min(prev + 3, events.length))}
               className="inline-flex items-center justify-center bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700"
             >
               Show more

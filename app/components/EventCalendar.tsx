@@ -18,14 +18,12 @@ interface EventCalendarProps {
 }
 
 export default function EventCalendar({ events }: EventCalendarProps) {
-
   const [currentDate, setCurrentDate] = useState<Date>(() => new Date());
   const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   const today = useMemo(() => new Date(), []);
   const minMonth = today.getMonth();
   const minYear = today.getFullYear();
-
 
   const handleNavigate = (nextDate: Date) => {
     const year = nextDate.getFullYear();
@@ -44,12 +42,14 @@ export default function EventCalendar({ events }: EventCalendarProps) {
     setSelectedEvent(event);
   };
 
-  const Toolbar = (toolbarProps: any) => {
+  const Toolbar = (toolbarProps: {
+    label: string;
+    onNavigate: (action: "PREV" | "NEXT" | "TODAY") => void;
+  }) => {
     const { label } = toolbarProps;
 
     const isAtMinMonth =
-      currentDate.getFullYear() === minYear &&
-      currentDate.getMonth() === minMonth;
+      currentDate.getFullYear() === minYear && currentDate.getMonth() === minMonth;
 
     const handlePrev = () => {
       if (isAtMinMonth) return;
@@ -120,13 +120,14 @@ export default function EventCalendar({ events }: EventCalendarProps) {
       </div>
 
       {selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={handleClose}>
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={handleClose}
+        >
           <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
             <CloseButton onClick={handleClose} />
 
-            <h2 className="mb-2 text-xl font-semibold text-slate-900">
-              {selectedEvent.title}
-            </h2>
+            <h2 className="mb-2 text-xl font-semibold text-slate-900">{selectedEvent.title}</h2>
 
             <p className="mb-1 text-sm font-medium text-slate-600">
               {selectedEvent.end && selectedEvent.end.getTime() !== selectedEvent.start.getTime()
@@ -135,9 +136,7 @@ export default function EventCalendar({ events }: EventCalendarProps) {
             </p>
 
             {selectedEvent.location && (
-              <p className="mb-3 text-sm text-slate-700">
-                {selectedEvent.location}
-              </p>
+              <p className="mb-3 text-sm text-slate-700">{selectedEvent.location}</p>
             )}
 
             {selectedEvent.eventUrl && (

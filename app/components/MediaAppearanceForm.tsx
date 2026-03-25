@@ -19,7 +19,7 @@ export default function MediaAppearanceForm() {
 
   const onSubmit = (data: MediaAppearanceFormValues) => {
     // Replace with real submission logic
-    // eslint-disable-next-line no-console
+
     console.log("Media appearance submitted", data);
     reset();
   };
@@ -29,8 +29,8 @@ export default function MediaAppearanceForm() {
       <div className="space-y-2">
         <h2 className="text-2xl font-semibold">Media appearances</h2>
         <p className="text-sm text-slate-600">
-          <strong>Rates:</strong> Inquire for rates. Fees depend on usage,
-          distribution, and time commitment.
+          <strong>Rates:</strong> Inquire for rates. Fees depend on usage, distribution, and time
+          commitment.
         </p>
       </div>
 
@@ -51,9 +51,7 @@ export default function MediaAppearanceForm() {
             className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
             {...register("name", { required: "Name is required" })}
           />
-          {errors.name && (
-            <p className="text-xs text-red-600">{errors.name.message}</p>
-          )}
+          {errors.name && <p className="text-xs text-red-600">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1">
@@ -72,9 +70,7 @@ export default function MediaAppearanceForm() {
               },
             })}
           />
-          {errors.email && (
-            <p className="text-xs text-red-600">{errors.email.message}</p>
-          )}
+          {errors.email && <p className="text-xs text-red-600">{errors.email.message}</p>}
         </div>
       </div>
 
@@ -88,9 +84,7 @@ export default function MediaAppearanceForm() {
           className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
           {...register("outlet", { required: "Outlet is required" })}
         />
-        {errors.outlet && (
-          <p className="text-xs text-red-600">{errors.outlet.message}</p>
-        )}
+        {errors.outlet && <p className="text-xs text-red-600">{errors.outlet.message}</p>}
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -131,9 +125,7 @@ export default function MediaAppearanceForm() {
           placeholder="Tell us about the project, topics, format, and timing."
           {...register("details", { required: "Please provide project details" })}
         />
-        {errors.details && (
-          <p className="text-xs text-red-600">{errors.details.message}</p>
-        )}
+        {errors.details && <p className="text-xs text-red-600">{errors.details.message}</p>}
       </div>
 
       <button

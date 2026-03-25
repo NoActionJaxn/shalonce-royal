@@ -18,48 +18,57 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
   const location = useLocation();
   const headerRef = useRef<HTMLElement | null>(null);
   const [isOverDark, setIsOverDark] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     function isPointOverDark(x: number, y: number) {
-      const stack = (document as any).elementsFromPoint
-        ? (document as any).elementsFromPoint(x, y) as Element[]
-        : [document.elementFromPoint(x, y)].filter(Boolean) as Element[];
+      const stack = document.elementsFromPoint(x, y);
       for (const el of stack) {
-        if (el?.closest('[data-dark]')) return true;
+        if (el?.closest("[data-dark]")) return true;
       }
       return false;
     }
 
-    function updateIsDark() {
+    function update() {
+      setIsScrolled(window.scrollY > 0);
+
       const header = headerRef.current;
       if (!header) return;
       const rect = header.getBoundingClientRect();
-      // Sample just below the header to detect underlying section
       const x = rect.left + rect.width / 2;
       const y = rect.bottom + 1;
-      const overDark = isPointOverDark(x, y);
-      setIsOverDark(overDark);
+      setIsOverDark(isPointOverDark(x, y));
     }
 
     // Run once now and again on next frame to catch route paint
-    updateIsDark();
-    const raf = requestAnimationFrame(updateIsDark);
-    window.addEventListener('scroll', updateIsDark, { passive: true });
-    document.addEventListener('scroll', updateIsDark, { passive: true, capture: true });
-    window.addEventListener('touchmove', updateIsDark, { passive: true });
-    window.addEventListener('wheel', updateIsDark, { passive: true });
-    window.addEventListener('resize', updateIsDark);
+    update();
+    const raf = requestAnimationFrame(update);
+    window.addEventListener("scroll", update, { passive: true });
+    document.addEventListener("scroll", update, { passive: true, capture: true });
+    window.addEventListener("touchmove", update, { passive: true });
+    window.addEventListener("wheel", update, { passive: true });
+    window.addEventListener("resize", update);
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', updateIsDark);
-      document.removeEventListener('scroll', updateIsDark, { capture: true } as any);
-      window.removeEventListener('touchmove', updateIsDark);
-      window.removeEventListener('wheel', updateIsDark);
-      window.removeEventListener('resize', updateIsDark);
+      window.removeEventListener("scroll", update);
+      document.removeEventListener("scroll", update, { capture: true });
+      window.removeEventListener("touchmove", update);
+      window.removeEventListener("wheel", update);
+      window.removeEventListener("resize", update);
     };
   }, [isOpen, location.pathname]);
   return (
-    <header ref={headerRef} className="fixed top-0 left-0 w-full z-40">
+    <header
+      ref={headerRef}
+      className={classNames(
+        "fixed top-0 left-0 w-full z-40 transition-colors duration-300",
+        isScrolled
+          ? isOverDark
+            ? "bg-black/80 backdrop-blur-md"
+            : "bg-white/80 backdrop-blur-md"
+          : "bg-transparent",
+      )}
+    >
       <Container fluid className="flex justify-between items-center h-28">
         <Link to="/" className="flex items-center gap-2">
           <div className={isOverDark ? "text-slate-100" : "text-slate-900"}>
@@ -69,12 +78,9 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
               </div>
             ) : (
               <div>
-                <span className="text-lg font-semibold tracking-tight">
-                  Shalancé Royal
-                </span>
+                <span className="text-lg font-semibold tracking-tight">Shaloncé Royal</span>
               </div>
             )}
-
           </div>
         </Link>
 
@@ -85,7 +91,9 @@ export default function Header({ menu, logo, isOpen = false, toggleMenu }: Heade
               to={item.path}
               className={classNames(
                 "text-sm font-medium transition-colors",
-                isOverDark ? "text-slate-100 hover:text-slate-200" : "text-slate-900 hover:text-slate-700"
+                isOverDark
+                  ? "text-slate-100 hover:text-slate-200"
+                  : "text-slate-900 hover:text-slate-700",
               )}
             >
               {item.label}
