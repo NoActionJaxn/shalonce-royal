@@ -37,12 +37,12 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <article className="flex h-full flex-col overflow-hidden border border-slate-200 bg-white shadow-sm">
-      <div className="aspect-video w-full overflow-hidden bg-slate-100">
+    <article className="flex break-inside-avoid flex-col overflow-hidden border border-slate-200 bg-white shadow-sm">
+      <div className="w-full overflow-hidden bg-slate-100">
         {product.images[0] ? (
-          <img src={product.images[0]} alt={product.name} className="h-full w-full object-cover" />
+          <img src={product.images[0]} alt={product.name} className="w-full object-cover" />
         ) : (
-          <div className="flex h-full w-full items-center justify-center text-slate-300">
+          <div className="flex aspect-video w-full items-center justify-center text-slate-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
