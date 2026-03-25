@@ -24,22 +24,24 @@ export default function Hero({
       {backgroundImage && (
         <div
           aria-hidden
-          className="absolute inset-0 hidden md:block bg-no-repeat bg-contain"
+          className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-full max-w-7xl hidden md:block bg-no-repeat bg-cover"
           style={{
             backgroundImage: `url(${imageBuilder(backgroundImage.asset._ref).url()})`,
-            backgroundPosition: "center bottom",
+            backgroundPosition: "left top",
           }}
         />
       )}
-      <Container className="grid grid-cols-1 md:grid-cols-2 min-h-75 md:h-100 lg:h-150 gap-16 py-20">
+      <Container className="relative z-10 grid grid-cols-1 md:grid-cols-2 min-h-75 md:h-100 lg:h-150 gap-16 py-20">
         <div />
-        <div className="">
+        <div className="flex justify-center items-center drop-shadow-lg">
           <div className="space-y-4">
             <div className="space-y-2">
-              <h1 className="text-4xl">{title}</h1>
-              <h2 className="text-2xl">{subTitle}</h2>
+              <h1 className="text-6xl font-bold">{title}</h1>
+              <h2 className="text-4xl font-light text-amber-300">{subTitle}</h2>
             </div>
-            <RichText value={content} />
+            <div className="text-xl space-y-3">
+              <RichText value={content} />
+            </div>
           </div>
         </div>
       </Container>
