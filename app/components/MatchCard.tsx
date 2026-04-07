@@ -36,7 +36,14 @@ export default function MatchCard({ slug, title, date, description, images }: Ma
             <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
           </header>
           <div className="line-clamp-3 text-sm text-slate-700">
-            <RichText value={description ?? []} />
+            <RichText
+              value={description ?? []}
+              components={{
+                marks: {
+                  link: ({ children }) => <span>{children}</span>,
+                },
+              }}
+            />
           </div>
         </div>
       </article>

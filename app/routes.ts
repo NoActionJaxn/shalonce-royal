@@ -15,6 +15,8 @@ export default [
     route("side-a/store/checkout", "./routes/side-a/store.checkout.tsx"),
     route("side-a/store/checkout/return", "./routes/side-a/store.checkout.return.tsx"),
     route("side-a/store/api/checkout", "./routes/side-a/store.api.checkout.ts"),
+    route("side-a/api/mailing-list", "./routes/side-a/mailing-list.api.ts"),
+    route("side-a/unsubscribe", "./routes/side-a/unsubscribe.tsx"),
     route("side-a/*", "./routes/side-a/catch-all.tsx"),
   ]),
 

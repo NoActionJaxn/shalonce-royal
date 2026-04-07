@@ -10,6 +10,8 @@ The official website for Shalancé Royal — professional wrestler, musician, an
 - Photo gallery
 - Contact forms for wrestling bookings, music performances, and media appearances
 - Storefront with shopping cart and Stripe Embedded Checkout
+- Mailing list banner with cookie-based dismissal and Sanity-backed email collection
+- Unsubscribe page (`/side-a/unsubscribe?email=...`)
 - Server-side rendering with dynamic content from Sanity CMS
 - Adaptive light/dark header with scroll-aware transparency
 
@@ -23,6 +25,7 @@ The official website for Shalancé Royal — professional wrestler, musician, an
 - **Payments:** [Stripe](https://stripe.com/) (Products API, Embedded Checkout)
 - **Calendar:** react-big-calendar
 - **Forms:** react-hook-form
+- **Cookies:** react-cookie (SSR-safe)
 - **Rich Text:** @portabletext/react
 
 ## Getting Started
@@ -55,6 +58,7 @@ VITE_SANITY_API_VERSION=2025-12-29
 
 STRIPE_SECRET_KEY=your_stripe_secret_key
 VITE_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+SANITY_STUDIO_API_TOKEN=your_sanity_write_token
 ```
 
 ### Development

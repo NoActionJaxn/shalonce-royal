@@ -13,6 +13,7 @@ import CartDrawer from "~/components/CartDrawer";
 import useOnResize from "~/hooks/useOnResize";
 import type { CallToAction } from "~/types/cta";
 import type { SanityImage, WrestlingSiteSettings } from "~/types/sanity";
+import MailingListBanner from "~/components/MailingListBanner";
 
 interface LoaderData {
   description?: string;
@@ -76,6 +77,7 @@ export default function Layout() {
         <Outlet />
         <Footer menu={menu} socials={socials} description={description} />
         <CartDrawer />
+        <MailingListBanner />
       </PageContainer>
     </CartProvider>
   );

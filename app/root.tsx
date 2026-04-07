@@ -17,21 +17,25 @@ import type { WrestlingSiteSettings } from "./types/sanity";
 import { WRESTLING_SITE_SETTINGS_REQUEST } from "./constants/requests";
 import { imageBuilder } from "./util/imageBuilder";
 import { Analytics } from "@vercel/analytics/react";
+import { CookiesProvider, Cookies } from "react-cookie";
 
 interface LoaderData {
   favicon?: WrestlingSiteSettings["favicon"];
+  cookies: string;
 }
 
-export const loader = async () => {
+export const loader = async ({ request }: Route.LoaderArgs) => {
+  const cookieHeader = request.headers.get("Cookie") ?? "";
+
   try {
     const client = getSanityClient();
     const settings: WrestlingSiteSettings = await client.fetch(WRESTLING_SITE_SETTINGS_REQUEST);
 
     const favicon = settings?.favicon;
 
-    return { favicon };
+    return { favicon, cookies: cookieHeader };
   } catch {
-    return { favicon: undefined };
+    return { favicon: undefined, cookies: cookieHeader };
   }
 };
 
@@ -51,6 +55,7 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   const data = useLoaderData<LoaderData>();
   const favicon = data?.favicon;
+  const cookies = new Cookies(data?.cookies);
 
   return (
     <html lang="en">
@@ -66,7 +71,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <CookiesProvider cookies={cookies}>{children}</CookiesProvider>
         <ScrollRestoration />
         <script src="https://kit.fontawesome.com/1aad4926f4.js" crossOrigin="anonymous" defer />
         <Scripts />

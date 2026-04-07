@@ -7,7 +7,7 @@ export default function CloseButton({ onClick, className, ...rest }: CloseButton
     <button
       type="button"
       className={classNames(
-        "absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white",
+        "absolute right-2 top-2 flex h-10 w-10 items-center justify-center rounded-full bg-black/70 text-white cursor-pointer",
         className,
       )}
       onClick={onClick}
