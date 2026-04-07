@@ -13,6 +13,8 @@ import CartDrawer from "~/components/CartDrawer";
 import useOnResize from "~/hooks/useOnResize";
 import type { CallToAction } from "~/types/cta";
 import type { SanityImage, WrestlingSiteSettings } from "~/types/sanity";
+import MailingListBanner from "~/components/MailingListBanner";
+import { CookiesProvider } from "react-cookie";
 
 interface LoaderData {
   description?: string;
@@ -69,15 +71,18 @@ export default function Layout() {
   const description = data?.description;
   const logo = data?.logo;
   return (
-    <CartProvider>
-      <PageContainer>
-        <Header logo={logo} menu={menu} isOpen={isOpen} toggleMenu={handleToggleMenu} />
-        <MobileMenu menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} />
-        <Outlet />
-        <Footer menu={menu} socials={socials} description={description} />
-        <CartDrawer />
-      </PageContainer>
-    </CartProvider>
+    <CookiesProvider>
+      <CartProvider>
+        <PageContainer>
+          <Header logo={logo} menu={menu} isOpen={isOpen} toggleMenu={handleToggleMenu} />
+          <MobileMenu menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} />
+          <Outlet />
+          <Footer menu={menu} socials={socials} description={description} />
+          <CartDrawer />
+          <MailingListBanner />
+        </PageContainer>
+      </CartProvider>
+    </CookiesProvider>
   );
 }
 
@@ -113,24 +118,26 @@ export function ErrorBoundary() {
   }
 
   return (
-    <CartProvider>
-      <PageContainer>
-        <Header logo={logo} menu={menu} isOpen={isOpen} toggleMenu={handleToggleMenu} />
-        <MobileMenu menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} />
-        <Page className="flex flex-col items-center justify-center gap-6">
-          <Container className="text-center" fluid>
-            <h1 className="text-6xl font-bold text-slate-900">{title}</h1>
-            <p className="mt-4 text-lg text-slate-600">{message}</p>
-            <Link
-              to="/side-a"
-              className="mt-8 inline-block rounded bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
-            >
-              Back to Home
-            </Link>
-          </Container>
-        </Page>
-        <Footer menu={menu} socials={socials} description={description} />
-      </PageContainer>
-    </CartProvider>
+    <CookiesProvider>
+      <CartProvider>
+        <PageContainer>
+          <Header logo={logo} menu={menu} isOpen={isOpen} toggleMenu={handleToggleMenu} />
+          <MobileMenu menu={menu} isOpen={isOpen} setIsOpen={setIsOpen} />
+          <Page className="flex flex-col items-center justify-center gap-6">
+            <Container className="text-center" fluid>
+              <h1 className="text-6xl font-bold text-slate-900">{title}</h1>
+              <p className="mt-4 text-lg text-slate-600">{message}</p>
+              <Link
+                to="/side-a"
+                className="mt-8 inline-block rounded bg-slate-900 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700"
+              >
+                Back to Home
+              </Link>
+            </Container>
+          </Page>
+          <Footer menu={menu} socials={socials} description={description} />
+        </PageContainer>
+      </CartProvider>
+    </CookiesProvider>
   );
 }

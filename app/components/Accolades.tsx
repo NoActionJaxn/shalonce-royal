@@ -20,8 +20,8 @@ export default function Accolades({ accolades, className = "" }: AccoladesProps)
     <Container className={className} fluid>
       <Container className="mx-auto py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16 h-full">
-          {topThree.map((item) => (
-            <div key={item._id} className="flex flex-col justify-between min-h-72 py-8">
+          {topThree.map((item, i) => (
+            <div key={i} className="flex flex-col justify-between min-h-72 py-8">
               <div className="space-y-2">
                 <h3 className="text-xl font-semibold">{item.title}</h3>
                 <p className="text-sm opacity-80">{item.description}</p>
