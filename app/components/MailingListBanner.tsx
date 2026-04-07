@@ -1,32 +1,20 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useFetcher } from "react-router";
 import { useCookies } from "react-cookie";
 import CloseButton from "~/components/CloseButton";
 
 const COOKIE_NAME = "mailing_list_dismissed";
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60; // 30 days in seconds
 
-interface MailingListFormValues {
-  email: string;
-}
-
 const MailingListBanner: React.FC = () => {
   const [cookies, setCookie] = useCookies([COOKIE_NAME]);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitSuccessful },
-    reset,
-  } = useForm<MailingListFormValues>();
+  const fetcher = useFetcher<{ success?: boolean; error?: string }>();
+  const isSubmitting = fetcher.state !== "idle";
+  const isSuccess = fetcher.data?.success === true;
+  const serverError = fetcher.data?.error;
 
   const handleClose = () => {
     setCookie(COOKIE_NAME, "true", { path: "/", maxAge: COOKIE_MAX_AGE, sameSite: "lax" });
-  };
-
-  const onSubmit = (data: MailingListFormValues) => {
-    // Replace with real submission logic
-    console.log("Mailing list submitted", data);
-    reset();
   };
 
   if (cookies[COOKIE_NAME]) {
@@ -48,33 +36,30 @@ const MailingListBanner: React.FC = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <fetcher.Form method="post" action="/side-a/api/mailing-list">
           <div className="flex flex-col sm:flex-row gap-4 mt-6">
             <input
               type="email"
+              name="email"
+              required
               placeholder="Email Address"
               className="w-full rounded-md border bg-white border-slate-300 px-3 py-2 text-sm focus:border-slate-500 focus:outline-none focus:ring-1 focus:ring-slate-500"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              })}
             />
 
             <button
               type="submit"
-              className="rounded-md bg-slate-900 px-6 py-2 text-sm font-medium text-white transition hover:bg-slate-700"
+              disabled={isSubmitting}
+              className="rounded-md bg-slate-900 px-6 py-2 text-sm font-medium text-white transition hover:bg-slate-700 disabled:opacity-50"
             >
-              Subscribe
+              {isSubmitting ? "Subscribing..." : "Subscribe"}
             </button>
           </div>
-        </form>
-        {errors.email && <p className="text-xs text-red-600 mt-2">{errors.email.message}</p>}
-        {isSubmitSuccessful && (
-          <p className="text-sm text-green-600 mt-2">Thanks for subscribing to our mailing list!</p>
-        )}
+        </fetcher.Form>
+        {serverError ? (
+          <p className="text-xs text-red-600 mt-2">{serverError}</p>
+        ) : isSuccess ? (
+          <p className="text-sm text-green-600 mt-2">Thank you for subscribing!</p>
+        ) : null}
       </div>
     </div>
   );
