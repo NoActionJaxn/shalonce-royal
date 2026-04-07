@@ -15,7 +15,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   const token = process.env.SANITY_STUDIO_API_TOKEN;
   if (!token) {
-    return Response.json({ error: "'t wrong, please try again" }, { status: 500 });
+    return Response.json({ error: "Something went wrong, please try again" }, { status: 500 });
   }
 
   try {
